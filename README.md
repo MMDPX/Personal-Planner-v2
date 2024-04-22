@@ -1,4 +1,4 @@
-# Personak-Planner-v2
+# Personal-Planner-v2
 
 ## Description
 
