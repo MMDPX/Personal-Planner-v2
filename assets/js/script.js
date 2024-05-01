@@ -16,38 +16,49 @@ if (!modalSeen) {
   }
 
   const calculateHours = () => {
-    // console.log(sleepingHours.value);
-  
-    // if (dontIncludeSleepingHours.checked) {
-    //   console.log("The hours will not be included in the schedule.");
-    // }
-  
-    // console.log(workingHours.value)
-  
-    // if (dontIncludeWorkingHours.checked) {
-    //   console.log("The hours will not be included in the schedule.")
-    // }
-  
-    // Getting the amount of hours slept
+    // Getting the amount of sleeping hours
     sleepHours = sleepingHours.value
     const [startSleepHourStr, endSleepHourStr] = sleepHours.split("-");
     startSleepHour = parseInt(startSleepHourStr, 10);
     endSleepHour = parseInt(endSleepHourStr, 10); 
-    let amountOfSleep =  endSleepHour - startSleepHour
+    let sleepTime =  endSleepHour - startSleepHour
   
     // Handling working across midnight  
     if (startSleepHour > endSleepHour) {
-    amountOfSleep = 24 - startSleepHour + endSleepHour
-    } else if (dontIncludeSleepingHours.checked) {
-      amountOfSleep = 0
+    sleepTime = 24 - startSleepHour + endSleepHour
     }
-    
-    return amountOfSleep
+
+     // Getting the amount of working hours
+     workHours = workingHours.value
+     const [startWorkHourStr, endWorkHourStr] = workHours.split("-");
+     startWorkHour = parseInt(startWorkHourStr, 10);
+     endWorkHour = parseInt(endWorkHourStr, 10); 
+     let workTime =  endWorkHour - startWorkHour
+   
+     // Handling working across midnight  
+     if (startWorkHour > endWorkHour) {
+     workTime = 24 - startWorkHour + endWorkHour
+     }
+
+    const freeTime = 24 - sleepTime - workTime
+    let totalTime = freeTime + sleepTime + workTime
+    let newTime
+
+    if (dontIncludeSleepingHours.checked && dontIncludeWorkingHours.checked) {
+      newTime = totalTime - sleepTime - workTime
+    } else if (dontIncludeSleepingHours.checked) {
+      newTime = totalTime - sleepTime
+    } else if (dontIncludeWorkingHours.checked) {
+      newTime = totalTime - workTime
+    } else {
+      newTime = 24
+    }
+      return newTime    
   }
 
 // Function for rendering the schedule based on user input
-const renderSchedule = (amountOfSleep) => {
-  for (let i = 0; i < amountOfSleep; i++) {
+const renderSchedule = (newTime) => {
+  for (let i = 0; i < newTime; i++) {
     // Creating the row element
     const row = document.createElement("div");
     row.className = "row";
