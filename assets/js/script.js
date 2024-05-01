@@ -3,8 +3,8 @@ const modalSeen = localStorage.getItem("modalSeen");
 const modalButton = document.getElementById("modalButton");
 const sleepingHours = document.getElementById("sleepingHours");
 const workingHours = document.getElementById("workingHours");
-const includeSleepingHours = document.getElementById("includeSleepingHours");
-const includeWorkingHours = document.getElementById("includeWorkingHours");
+const dontIncludeSleepingHours = document.getElementById("dontIncludeSleepingHours");
+const dontIncludeWorkingHours = document.getElementById("dontIncludeWorkingHours");
 const container = document.getElementById("container"); 
 
 // Determining whether the modal appears based on local storage
@@ -15,33 +15,39 @@ if (!modalSeen) {
   });    
   }
 
-// Function for rendering the schedule based on user input
-const renderSchedule = (numberOfRows) => {
-  console.log(sleepingHours.value);
-
-  if (includeSleepingHours.checked) {
-    console.log("The hours will not be included in the schedule.");
-  }
-
-  console.log(workingHours.value)
-
-  if (includeWorkingHours.checked) {
-    console.log("The hours will not be included in the schedule.")
-  }
-
-  // Getting the amount of hours slept
-  sleepHours = sleepingHours.value
-  const [startSleepHourStr, endSleepHourStr] = sleepHours.split("-");
-  startSleepHour = parseInt(startSleepHourStr, 10);
-  endSleepHour = parseInt(endSleepHourStr, 10); 
-  let amountOfSleep =  endSleepHour - startSleepHour
-  // Handling working across midnight  
-  if (startSleepHour > endSleepHour) {
-  amountOfSleep = 24 - startSleepHour + endSleepHour
-  console.log(amountOfSleep)
-  }
+  const calculateHours = () => {
+    // console.log(sleepingHours.value);
   
-  for (let i = 0; i < numberOfRows; i++) {
+    // if (dontIncludeSleepingHours.checked) {
+    //   console.log("The hours will not be included in the schedule.");
+    // }
+  
+    // console.log(workingHours.value)
+  
+    // if (dontIncludeWorkingHours.checked) {
+    //   console.log("The hours will not be included in the schedule.")
+    // }
+  
+    // Getting the amount of hours slept
+    sleepHours = sleepingHours.value
+    const [startSleepHourStr, endSleepHourStr] = sleepHours.split("-");
+    startSleepHour = parseInt(startSleepHourStr, 10);
+    endSleepHour = parseInt(endSleepHourStr, 10); 
+    let amountOfSleep =  endSleepHour - startSleepHour
+  
+    // Handling working across midnight  
+    if (startSleepHour > endSleepHour) {
+    amountOfSleep = 24 - startSleepHour + endSleepHour
+    } else if (dontIncludeSleepingHours.checked) {
+      amountOfSleep = 0
+    }
+    
+    return amountOfSleep
+  }
+
+// Function for rendering the schedule based on user input
+const renderSchedule = (amountOfSleep) => {
+  for (let i = 0; i < amountOfSleep; i++) {
     // Creating the row element
     const row = document.createElement("div");
     row.className = "row";
@@ -50,7 +56,7 @@ const renderSchedule = (numberOfRows) => {
     const timeCol = document.createElement("div");
     timeCol.className = "col";
     timeCol.id = "time";
-    timeCol.textContent = `${[i]} PM`; 
+    timeCol.textContent = `${i + startSleepHour} :00`; 
 
     // Creating the task input
     const taskInput = document.createElement("input");
@@ -77,13 +83,9 @@ const renderSchedule = (numberOfRows) => {
 };
 
 modalButton.addEventListener("click", () => {
-  renderSchedule();
+  renderSchedule(calculateHours());
   myModal.hide();
 });
 
-// const getSleepHours = () => {
-//   totalSleepHours = sleepingHours.value
-//   const [startSleepHour, endSleepHour] = totalSleepHours.split("-")
-//   console.log(startSleepHour)
-// }
-// getSleepHours();
+
+

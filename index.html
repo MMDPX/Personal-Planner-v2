@@ -11,7 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body id="body">
   <header>
     <h1>Personal Planner v2</h1>
   </header>
@@ -27,10 +27,10 @@
       <div class="modal-body">
         <p>Your sleeping hours (e.g. 22-6, 23-7)</p>
         <input id="sleepingHours">
-        <p> <input type="checkbox" id="includeSleepingHours"> Do not include this time period in the schedule</p>
+        <p> <input type="checkbox" id="dontIncludeSleepingHours"> Do not include this time period in the schedule</p>
         <p>Your working/studying hours (eg. 7-15, 9-17)</p>
         <input id="workingHours">
-        <p> <input type="checkbox" id="includeWorkingHours"> Do not include this time period in the schedule</p>
+        <p> <input type="checkbox" id="dontIncludeWorkingHours"> Do not include this time period in the schedule</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="modalButton">Proceed</button>
