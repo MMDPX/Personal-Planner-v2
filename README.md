@@ -2,7 +2,7 @@
 
 ## Description
 
-Coming soon.
+Personal planner with an option to randomly assign tasks within the selected time period. The web app does not currently have all the intended features as it is still being worked on.
 
 ## Installation
 
