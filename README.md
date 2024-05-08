@@ -14,7 +14,7 @@ Alternatively, the repo can be downloaded and run locally.
 
 ## Credits
 
-N/A
+The body as well as header and footer backgrounds were obtained from https://www.freepik.com/.
 
 ## License
 
