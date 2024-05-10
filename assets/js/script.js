@@ -6,6 +6,13 @@ const workingHours = document.getElementById("workingHours");
 const dontIncludeSleepingHours = document.getElementById("dontIncludeSleepingHours");
 const dontIncludeWorkingHours = document.getElementById("dontIncludeWorkingHours");
 const container = document.getElementById("container"); 
+const time = document.querySelector("#currentDay");
+
+// Function for getting the current day with Day.js
+function updateTime(){
+  time.textContent = dayjs().format("YYYY-MM-DD HH:mm:ss");
+  }
+  setInterval(updateTime, 1000);
 
 // Determining whether the modal appears based on local storage
 if (!modalSeen) { 
@@ -43,6 +50,7 @@ if (!modalSeen) {
     const freeTime = 24 - sleepTime - workTime
     let totalTime = freeTime + sleepTime + workTime
     let newTime
+     console.log(freeTime)
 
     if (dontIncludeSleepingHours.checked && dontIncludeWorkingHours.checked) {
       newTime = totalTime - sleepTime - workTime
@@ -54,6 +62,7 @@ if (!modalSeen) {
       newTime = 24
     }
       return newTime    
+
   }
 
 // Function for rendering the schedule based on user input
