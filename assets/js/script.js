@@ -76,7 +76,14 @@ const renderSchedule = (newTime) => {
     const timeCol = document.createElement("div");
     timeCol.className = "col";
     timeCol.id = "time";
-    timeCol.textContent = `${i + startSleepHour} :00`; 
+
+    if (dontIncludeSleepingHours.checked && dontIncludeWorkingHours.checked && startWorkHour > endSleepHour) {
+    timeCol.textContent = `${i + endWorkHour} :00`; 
+    } else if (dontIncludeSleepingHours.checked && dontIncludeWorkingHours.checked && startSleepHour > endWorkHour) {
+      timeCol.textContent = `${i + endSleepHour} :00`; 
+    } else {
+      timeCol.textContent = `${i} :00`; 
+    }
 
     // Creating the task input
     const taskInput = document.createElement("input");
