@@ -1,3 +1,4 @@
+// First modal
 const modal = document.getElementById("staticBackdrop");
 const modalSeen = localStorage.getItem("modalSeen");
 const modalButton = document.getElementById("modalButton");
@@ -6,7 +7,14 @@ const workingHours = document.getElementById("workingHours");
 const dontIncludeSleepingHours = document.getElementById("dontIncludeSleepingHours");
 const dontIncludeWorkingHours = document.getElementById("dontIncludeWorkingHours");
 const container = document.getElementById("container"); 
+
+// Randomiser modal
+const randomiserBtn = document.getElementById("randomiserBtn");
+const closeRandomiserBtn = document.getElementById("closeRandomiserBtn");
+
+// Day.js
 const time = document.querySelector("#currentDay");
+
 
 // Function for getting the current day with Day.js
 function updateTime(){
@@ -97,6 +105,7 @@ const renderSchedule = (newTime) => {
     submitButton.type = "submit";
     submitButton.value = "Submit";
     submitButton.id = "save";
+    submitButton.innerHTML = "Save"
 
     // Appending elements to the row
     row.appendChild(timeCol);
@@ -105,14 +114,22 @@ const renderSchedule = (newTime) => {
 
     // Appending the row to the container
     container.appendChild(row);
-
   }
 };
 
+// First modal 
 modalButton.addEventListener("click", () => {
   renderSchedule(calculateHours());
   myModal.hide();
 });
 
+// Randomiser modal
+randomiserBtn.addEventListener("click", () => {
+  randomiserModal = new bootstrap.Modal(document.getElementById("randomiserModal"));
+  randomiserModal.show();
+});
 
+closeRandomiserBtn.addEventListener("click", () => {
+  randomiserModal.hide();
+});
 
