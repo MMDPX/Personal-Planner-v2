@@ -6,7 +6,7 @@ Personal planner with an option to randomly assign tasks within the selected tim
 
 ## Usage
 The website can be accessed at https://mmdpx.github.io/Personal-Planner-v2/ 
-Alternatively, the repo can be downloaded and run locally.
+Or alternatively, the repo can be downloaded and run locally.
 
 ## Credits
 
