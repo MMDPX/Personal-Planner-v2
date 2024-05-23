@@ -11,6 +11,9 @@ const container = document.getElementById("container");
 // Randomiser modal
 const randomiserBtn = document.getElementById("randomiserBtn");
 const closeRandomiserBtn = document.getElementById("closeRandomiserBtn");
+const addTask = document.getElementById("addTask");
+const addTaskBtn = document.getElementById("addTaskBtn");
+const taskDiv = document.getElementById("taskDiv");
 
 // Day.js
 const time = document.querySelector("#currentDay");
@@ -41,7 +44,7 @@ if (!modalSeen) {
     // Handling working across midnight  
     if (startSleepHour > endSleepHour) {
     sleepTime = 24 - startSleepHour + endSleepHour
-    }
+    } 
 
      // Getting the amount of working hours
      workHours = workingHours.value
@@ -53,12 +56,12 @@ if (!modalSeen) {
      // Handling working across midnight  
      if (startWorkHour > endWorkHour) {
      workTime = 24 - startWorkHour + endWorkHour
-     }
+     } 
+
 
     const freeTime = 24 - sleepTime - workTime
     let totalTime = freeTime + sleepTime + workTime
     let newTime
-     console.log(freeTime)
 
     if (dontIncludeSleepingHours.checked && dontIncludeWorkingHours.checked) {
       newTime = totalTime - sleepTime - workTime
@@ -70,7 +73,6 @@ if (!modalSeen) {
       newTime = 24
     }
       return newTime    
-
   }
 
 // Function for rendering the schedule based on user input
@@ -95,7 +97,7 @@ const renderSchedule = (newTime) => {
 
     // Creating the task input
     const taskInput = document.createElement("input");
-    taskInput.className = "col-8";
+    taskInput.className = "col-11";
     taskInput.id = "task";
     taskInput.type = "text";
 
@@ -103,7 +105,6 @@ const renderSchedule = (newTime) => {
     const submitButton = document.createElement("div");
     submitButton.className = "col btn btn-primary";
     submitButton.type = "submit";
-    submitButton.value = "Submit";
     submitButton.id = "save";
     submitButton.innerHTML = "Save"
 
@@ -115,6 +116,25 @@ const renderSchedule = (newTime) => {
     // Appending the row to the container
     container.appendChild(row);
   }
+};
+
+//Randomiser user input
+const randomiserModalUserInput = (taskText) => {
+  const taskContainer = document.createElement("div");
+  taskContainer.classList.add("taskItem");
+  const taskContent = document.createElement("p");
+  taskContent.textContent = taskText;
+  taskContainer.appendChild(taskContent);
+  const closeButton = document.createElement("button");
+  closeButton.classList.add("removeTaskButton");
+  closeButton.textContent = addTask.value
+
+  closeButton.addEventListener("click", () => {
+    taskContainer.remove();
+  });
+
+  taskContainer.appendChild(closeButton);
+  taskDiv.appendChild(taskContainer);
 };
 
 // First modal 
@@ -131,5 +151,9 @@ randomiserBtn.addEventListener("click", () => {
 
 closeRandomiserBtn.addEventListener("click", () => {
   randomiserModal.hide();
+});
+
+addTaskBtn.addEventListener("click", () => {
+ randomiserModalUserInput();
 });
 
